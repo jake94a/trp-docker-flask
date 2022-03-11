@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{% block title %} {% endblock %} - Jake's Flask App</title>
+    <style>
+      nav a {
+        color: #d64161;
+        font-size: 3em;
+        margin-left: 50px;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a href="{{ url_for('index') }}">Home</a>
+      <a href="{{ url_for('submit') }}">Submit a Pet</a>
+      <a href="{{ url_for('retrieve') }}">Retrieve a Pet</a>
+      <a href="{{ url_for('edit') }}">Edit a Pet</a>
+      <a href="{{ url_for('delete') }}">Delete a Pet</a>
+    </nav>
+    <hr />
+    {% with messages = get_flashed_messages() %} {% if messages %}
+    <ul class="content">
+      {% for message in messages %}
+      <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %} {% endwith %}
+    <div class="content">
+      {% block content %} {% endblock %} {% block body %}{% endblock %}
+    </div>
+
+    <div style="width: 50%; margin: auto">
+      {% for pet in pets %}
+      <div style="padding: 10px; background-color: #eee; margin: 20px">
+        <p style="font-size: 24px">
+          ID: {{ pet.id }}, Name: {{ pet.name }}, Species: {{ pet.species }}
+        </p>
+      </div>
+      {% endfor %}
+    </div>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+Steps in deploying code to production:
+Pre-reqs: Automated tests have passed, code review has been done
+
+1. Merge pull request in a specific branch
+    a. One idea is to merge PRs into a `staging` branch rather than `master`/`main`
+    b. this allows us to set up a `staging` environment that can be used without affecting production
+
+2. When merge is detected, build an image of the `staging` branch
+    a. Use GitHub actions such as [Build and push Docker images](https://github.com/marketplace/actions/build-and-push-docker-images) 
+    b. This often relies on secrets which can be stored in GitHub or something like a k8s secrets object
+        1. Secrets can include API keys, database host ip/port(s), secret keys, etc
+
+3. Push a built image to some registry, like ECR or Docker Hub. GitHub actions may accomplish this. Run Snyk on the built image to check for vulnerabilities
+
+4. Upon receipt of the image in the registry, pull the image into a k8s deployment object or similar, such as EKS
+
+5. Assuming no issues, the image of the newest PR is now live. Send a QA team to explore it or run tests like puppeteer
+
+6. After testing is concluded, merge `staging` into `master`/`main`
+    a. Steps 2-4 will happen again

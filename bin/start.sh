@@ -1,0 +1,1 @@
+docker run -p 8881:8881 -v $(pwd)/test.db:/test.db --env-file .env jake94a/trp-docker-flask

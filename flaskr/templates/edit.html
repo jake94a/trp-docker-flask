@@ -1,0 +1,16 @@
+{% extends 'base.html' %} {% block content %}
+<h1>{% block title %} Edit {% endblock %}</h1>
+<h1>Do some edit stuff</h1>
+<h2>
+  Using the ID of the Pet you would like to edit <br />
+  Enter the info you would like to update <br />
+  It is ok to leave either "name" or "species" empty
+</h2>
+
+<form action="/edit" method="POST">
+  <p>ID <input type="text" name="id" /></p>
+  <p>Name <input type="text" name="name" /></p>
+  <p>Species <input type="text" name="species" /></p>
+  <p><input type="submit" value="submit" /></p>
+</form>
+{% endblock %}

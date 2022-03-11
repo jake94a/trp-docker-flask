@@ -1,0 +1,14 @@
+{% extends 'base.html' %} {% block content %}
+<h1>{% block title %} Delete {% endblock %}</h1>
+<h1>Do some delete stuff</h1>
+<h2>
+  Enter the ID of the Pet you would like to delete <br />
+  Only press "Delete" if you're absolutely sure <br />
+  There are no backsies
+</h2>
+
+<form action="/delete" method="POST">
+  <p>ID <input type="text" name="id" /></p>
+  <p><input type="submit" value="Delete" /></p>
+</form>
+{% endblock %}

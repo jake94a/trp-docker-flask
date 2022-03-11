@@ -1,0 +1,10 @@
+{% extends 'base.html' %} {% block content %}
+<h1>{% block title %} Retrieve {% endblock %}</h1>
+<h1>Do some retrieval stuff</h1>
+<h2>retrieval</h2>
+
+<form action="/retrieve" method="GET">
+  <p>Search by ID <input type="text" name="id" /></p>
+  <p><input type="submit" value="search" /></p>
+</form>
+{% endblock %}
