@@ -12,6 +12,7 @@ def scrape_sites(sites):
  """
 
 import requests
+import asyncio
 
 sites = [
     "http://www.google.com",
@@ -21,7 +22,7 @@ sites = [
     "http://www.yahoo.com",
 ]
 
-
+# list comprehension
 def scrape_sites(sites):
     """
     Use the `requests` library to hit each site in the sites list
@@ -36,6 +37,7 @@ def scrape_sites(sites):
     return [{site: requests.get(site).content} for site in sites]
 
 
+# basic
 def scrape_sites(sites):
     """
     Use the `requests` library to hit each site in the sites list
@@ -56,3 +58,19 @@ def scrape_sites(sites):
         scraped_info.append(site_content)
 
     return scraped_info
+
+
+# asyncio
+async def scrape_site(site):
+    loop = asyncio.get_event_loop()
+    response = await loop.run_in_executor(None, requests.get, site)
+    return response.content
+
+
+async def scrape_sites(sites_list):
+    scraped_info = [{site: await scrape_site(site)} for site in sites_list]
+    print(scraped_info)
+    return scraped_info
+
+
+asyncio.run(scrape_sites(sites))
